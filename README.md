@@ -12,4 +12,10 @@ android的软键盘高度监听一直是一个老大难的问题，但是也不�
 
 
 
+## 功能演示
+![Demo](./image/heightchange.gif)
+![Demo](./image/heightanimation.gif)
+
+
+
 

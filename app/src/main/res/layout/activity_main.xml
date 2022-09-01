@@ -8,18 +8,13 @@
 
     <EditText
         android:id="@+id/et_1"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello"
+        android:background="?attr/colorSecondary"
+        android:hint="Hello World"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <EditText
-        android:id="@+id/et_2"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

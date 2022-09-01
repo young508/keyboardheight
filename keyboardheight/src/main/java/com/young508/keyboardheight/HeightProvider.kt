@@ -4,12 +4,20 @@ import android.app.Activity
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.widget.EditText
 import android.widget.PopupWindow
 import androidx.core.view.*
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class HeightProvider(private val mActivity: Activity) : PopupWindow(mActivity),
     OnGlobalLayoutListener, DefaultLifecycleObserver {
@@ -23,6 +31,13 @@ class HeightProvider(private val mActivity: Activity) : PopupWindow(mActivity),
 
     private val isSupportInsetsFiled by lazy {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+    }
+
+    private val executeHandle = Handler(Looper.getMainLooper()) {
+        if (it.what == 1) {
+            showAtLocation(mActivity.window.decorView, Gravity.NO_GRAVITY, 0, 0)
+        }
+        true
     }
 
     init {
@@ -41,12 +56,23 @@ class HeightProvider(private val mActivity: Activity) : PopupWindow(mActivity),
     }
 
     fun setHeightListener(
-        imeChangeListener: ImeHeightListener?=null,
+        imeChangeListener: ImeHeightListener? = null,
         imeAnimationListener: ImeAnimationListener? = null
     ): HeightProvider {
         this.mImeChangeListener = imeChangeListener
         this.mImeAnimationListener = imeAnimationListener
         return this
+    }
+
+    // 延迟加载popupWindow，如果不加延迟就会报错
+    fun showProvider() {
+        val msg = Message()
+        msg.what = 1
+        executeHandle.sendMessageDelayed(msg, 100)
+//        GlobalScope.launch(Dispatchers.Main) {
+//            delay(100)
+//            showAtLocation(mActivity.window.decorView, Gravity.NO_GRAVITY, 0, 0)
+//        }
     }
 
     override fun onGlobalLayout() {
@@ -88,11 +114,9 @@ class HeightProvider(private val mActivity: Activity) : PopupWindow(mActivity),
             } else {
                 val imeCall = object : ImeHeightListener {
                     override fun imeHeightChanged(
-                        height: Int,
-                        standardHeight: Int,
-                        imeShow: Boolean
+                        height: Int
                     ) {
-                        mImeChangeListener?.imeHeightChanged(height, standardHeight, imeShow)
+                        mImeChangeListener?.imeHeightChanged(height)
                     }
                 }
                 val call = WindowInsetsCallback(imeCall)
@@ -103,7 +127,7 @@ class HeightProvider(private val mActivity: Activity) : PopupWindow(mActivity),
             if (keyboardHeight < 50.toPx(mActivity)) {
                 keyboardHeight = 0
             }
-            mImeChangeListener?.imeHeightChanged(keyboardHeight, 0, false)
+            mImeChangeListener?.imeHeightChanged(keyboardHeight)
         }
     }
 

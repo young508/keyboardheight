@@ -9,6 +9,10 @@ class WindowInsetsCallback(
 ) : OnApplyWindowInsetsListener {
     private var mStandardHeight: Int = 0
 
+
+    var standard = 0
+    var mCurrentImeShow = false
+
     /**
      * 只有inset有变动就会调用
      * 然后向动画回调传递
@@ -26,7 +30,13 @@ class WindowInsetsCallback(
             if (mStandardHeight == 0 && diff.bottom > 50.toPx(v.context)) {
                 mStandardHeight = diff.bottom
             }
-            listener?.imeHeightChanged(diff.bottom, mStandardHeight, imeShow)
+
+            if (!mCurrentImeShow && imeShow && mStandardHeight > 0) {
+                listener?.imeHeightChanged(Math.min(diff.bottom, mStandardHeight))
+            } else {
+                listener?.imeHeightChanged(diff.bottom)
+            }
+            mCurrentImeShow = imeShow
         }
         return WindowInsetsCompat.CONSUMED
     }

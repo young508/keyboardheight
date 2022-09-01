@@ -57,7 +57,12 @@ class TranslateDeferringInsetsAnimationCallback(
         }
 
         val imeShow = insets.isVisible(WindowInsetsCompat.Type.ime())
-        imeChangeListener?.imeHeightProgress(imeShow, diff.bottom)
+
+        if (mStandardHeight > 0 && imeShow) {
+            imeChangeListener?.imeHeightProgress(imeShow, Math.min(diff.bottom, mStandardHeight))
+        } else {
+            imeChangeListener?.imeHeightProgress(imeShow, diff.bottom)
+        }
 
         animationRunning = true
         return insets
