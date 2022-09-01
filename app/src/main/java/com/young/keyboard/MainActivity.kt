@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
 //        val height1 = HeightProvider(this)
 //        lifecycle.addObserver(height1)
-//
 //        val obj = object : ImeHeightListener {
 //            override fun imeHeightChanged(height: Int) {
 //                findViewById<EditText>(R.id.et_1).translationY = -height.toFloat()
