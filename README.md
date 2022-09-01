@@ -58,7 +58,16 @@ height2.setHeightListener(imeAnimationListener = object : ImeAnimationListener {
 --------------------------------------------------------------------------------------------
 该库代码量不多，可以下面方式引用
 
+在project build.gradle 或者 setting.gradle 添加
+```groovy
+maven { url 'https://jitpack.io' }
+```
 
+然后在项目中build.gradle中添加
+```groovy
+implementation "com.github.young508:keyboardheight:x.y.z"
+```
+具体版本可以查看右边release记录，比如1.0.0
 
 也可以直接把代码copy到项目中方便自己定制
 
