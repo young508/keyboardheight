@@ -12,8 +12,11 @@ android的软键盘高度监听一直是一个老大难的问题，但是也不�
 
 
 
-## 功能演示
-![Demo](./image/heightchange.gif)
+## 普通正常的健康高度改变
+<img src="./image/heightchange.gif?raw=true" width="200">
+![Demo](./image/heightchange.gif width="200")
+
+## Android11支持的键盘高度变化动画
 ![Demo](./image/heightanimation.gif)
 
 
