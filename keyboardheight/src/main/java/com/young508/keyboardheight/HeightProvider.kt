@@ -33,13 +33,6 @@ class HeightProvider(private val mActivity: Activity) : PopupWindow(mActivity),
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
     }
 
-    private val executeHandle = Handler(Looper.getMainLooper()) {
-        if (it.what == 1) {
-            showAtLocation(mActivity.window.decorView, Gravity.NO_GRAVITY, 0, 0)
-        }
-        true
-    }
-
     init {
         // 基础配置
         contentView = rootView
@@ -64,15 +57,13 @@ class HeightProvider(private val mActivity: Activity) : PopupWindow(mActivity),
         return this
     }
 
-    // 延迟加载popupWindow，如果不加延迟就会报错
-    fun showProvider() {
-        val msg = Message()
-        msg.what = 1
-        executeHandle.sendMessageDelayed(msg, 100)
-//        GlobalScope.launch(Dispatchers.Main) {
-//            delay(100)
-//            showAtLocation(mActivity.window.decorView, Gravity.NO_GRAVITY, 0, 0)
-//        }
+
+    /**
+     * 延迟加载popupWindow，如果不加延迟就会报错
+     * 调用者自己控制延迟，比如使用Handler或者协程
+     */
+    fun showProviderNeedDelay(){
+        showAtLocation(mActivity.window.decorView, Gravity.NO_GRAVITY, 0, 0)
     }
 
     override fun onGlobalLayout() {

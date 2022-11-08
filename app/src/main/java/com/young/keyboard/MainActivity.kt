@@ -6,6 +6,7 @@ import android.widget.EditText
 import com.young508.keyboardheight.HeightProvider
 import com.young508.keyboardheight.ImeAnimationListener
 import com.young508.keyboardheight.ImeHeightListener
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,6 +46,13 @@ class MainActivity : AppCompatActivity() {
             override fun imeButtonChangeHeight(height: Int, standardHeight: Int) {
                 findViewById<EditText>(R.id.et_1).translationY = -height.toFloat()
             }
-        }).showProvider()
+        })
+
+        MainScope().launch {
+            delay(200)
+            height2.showProviderNeedDelay()
+        }
+
+
     }
 }
