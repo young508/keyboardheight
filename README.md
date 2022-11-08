@@ -52,7 +52,14 @@ height2.setHeightListener(imeAnimationListener = object : ImeAnimationListener {
     override fun imeButtonChangeHeight(height: Int, standardHeight: Int) {
         findViewById<EditText>(R.id.et_1).translationY = -height.toFloat()
     }
-}).showProvider()
+})
+
+//这里通过协程延时展示
+MainScope().launch {
+    delay(200)
+    height2.showProviderNeedDelay()
+}
+    
 ```
 
 --------------------------------------------------------------------------------------------
@@ -65,9 +72,8 @@ maven { url 'https://jitpack.io' }
 
 然后在项目中build.gradle中添加
 ```groovy
-implementation "com.github.young508:keyboardheight:x.y.z"
+implementation "com.github.young508:keyboardheight:1.1.0"
 ```
-具体版本可以查看右边release记录，比如1.0.0
 
 也可以直接把代码copy到项目中方便自己定制
 
