@@ -73,7 +73,7 @@ class TranslateDeferringInsetsAnimationCallback(
         val imeShow =
             ViewCompat.getRootWindowInsets(view)?.isVisible(WindowInsetsCompat.Type.ime()) ?: false
         animationRunning = false
-        imeChangeListener?.imeChangeEnd(imeShow)
+        imeChangeListener?.imeChangeEnd(imeShow,mStandardHeight)
 
     }
 

@@ -21,8 +21,9 @@ interface ImeAnimationListener {
     /**
      * 键盘动画结束
      * @param imeShow：true,出现键盘 false：键盘消失
+     * @param standardHeight: 在使用时，可以保存第一次出现的合理范围的值，一般在250-350dp
      */
-    fun imeChangeEnd(imeShow: Boolean = false)
+    fun imeChangeEnd(imeShow: Boolean = false,standardHeight:Int)
 
     /**
      * 键盘出现后，键盘上的某些按钮改变，会让键盘高度突变
